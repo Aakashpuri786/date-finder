@@ -1,0 +1,859 @@
+/* ============================================================
+   IMPORTS
+============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Share+Tech+Mono&family=Nunito:wght@400;600;700&display=swap');
+
+/* ============================================================
+   CSS VARIABLES — CUPCAKE PALETTE
+============================================================ */
+:root {
+  --pink: #FF85C2;
+  --pink-deep: #E0448B;
+  --cream: #FFF0F5;
+  --lilac: #D4AAFF;
+  --mint: #A8FFE4;
+  --yellow: #FFE07A;
+  --bg: #0E060F;
+  --bg2: #160C1A;
+  --bg3: #1E0F26;
+  --border: rgba(255, 133, 194, 0.18);
+  --text: #FBDAED;
+  --muted: rgba(251, 218, 237, 0.45);
+  --shadow: rgba(224, 68, 139, 0.35);
+}
+
+/* ============================================================
+   RESET & BASE
+============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  min-height: 100vh;
+  background-color: var(--bg);
+  /* dot-grid texture */
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(255, 133, 194, 0.12) 1px, transparent 0);
+  background-size: 28px 28px;
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* Ambient orbs */
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(90px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+body::before {
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(circle, rgba(212, 170, 255, 0.18) 0%, transparent 70%);
+  top: -120px;
+  left: -100px;
+}
+
+body::after {
+  width: 480px;
+  height: 480px;
+  background: radial-gradient(circle, rgba(255, 133, 194, 0.15) 0%, transparent 70%);
+  bottom: -80px;
+  right: -80px;
+}
+
+/* ============================================================
+   SCROLLBAR
+============================================================ */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--pink-deep);
+  border-radius: 10px;
+}
+
+/* ============================================================
+   NAVBAR
+============================================================ */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 36px;
+  background: rgba(14, 6, 15, 0.82);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.nav-brand {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 19px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: var(--pink);
+  text-shadow: 0 0 18px rgba(255, 133, 194, 0.6);
+  user-select: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 6px;
+}
+
+.nav-links button {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  padding: 8px 18px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 133, 194, 0.22);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.22s ease;
+}
+
+.nav-links button:hover {
+  border-color: var(--pink);
+  color: var(--cream);
+  background: rgba(255, 133, 194, 0.1);
+  box-shadow: 0 0 14px rgba(255, 133, 194, 0.2), inset 0 0 8px rgba(255, 133, 194, 0.06);
+}
+
+.nav-links button.active {
+  background: var(--pink);
+  color: #1a0010;
+  border-color: var(--pink);
+  font-weight: 700;
+  box-shadow: 0 0 20px rgba(255, 133, 194, 0.5);
+}
+
+/* ============================================================
+   LAYOUT
+============================================================ */
+.page {
+  display: none;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 44px 20px 80px;
+  position: relative;
+  z-index: 1;
+  animation: slideUp 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.page.active {
+  display: block;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================
+   CARD
+============================================================ */
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 40px 44px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* corner accent */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--pink), var(--lilac));
+}
+
+.card-sm {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 28px 32px;
+  margin-top: 20px;
+}
+
+/* ============================================================
+   HERO SECTION
+============================================================ */
+.hero {
+  margin-bottom: 40px;
+}
+
+.hero-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  color: var(--mint);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hero-label::before {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: var(--mint);
+  display: inline-block;
+}
+
+.hero h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 46px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  line-height: 1.1;
+  color: var(--cream);
+  text-shadow: 0 0 40px rgba(255, 133, 194, 0.25);
+  margin-bottom: 12px;
+}
+
+.hero h1 span {
+  color: var(--pink);
+  text-shadow: 0 0 28px rgba(255, 133, 194, 0.7);
+}
+
+.hero p {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 14px;
+  color: var(--muted);
+  letter-spacing: 1px;
+}
+
+/* ============================================================
+   SEARCH MODE TABS
+============================================================ */
+.mode-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.mode-tab {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 7px 14px;
+  border-radius: 3px;
+  border: 1px solid rgba(255, 133, 194, 0.2);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.mode-tab:hover {
+  border-color: var(--pink);
+  color: var(--pink);
+}
+
+.mode-tab.active {
+  background: rgba(255, 133, 194, 0.15);
+  border-color: var(--pink);
+  color: var(--pink);
+}
+
+/* ============================================================
+   SEARCH INPUT
+============================================================ */
+.search-wrap {
+  position: relative;
+  display: flex;
+  gap: 0;
+}
+
+.text-input {
+  flex: 1;
+  padding: 17px 22px;
+  background: var(--bg);
+  border: 1.5px solid rgba(255, 133, 194, 0.25);
+  border-right: none;
+  border-radius: 4px 0 0 4px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 17px;
+  color: var(--cream);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  letter-spacing: 1px;
+}
+
+.text-input::placeholder {
+  color: rgba(251, 218, 237, 0.28);
+  font-size: 14px;
+}
+
+.text-input:focus {
+  border-color: var(--pink);
+  box-shadow: 0 0 0 3px rgba(255, 133, 194, 0.14);
+}
+
+.btn-search {
+  padding: 17px 32px;
+  background: var(--pink);
+  border: 1.5px solid var(--pink);
+  border-radius: 0 4px 4px 0;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #1a0010;
+  cursor: pointer;
+  white-space: nowrap;
+  text-transform: uppercase;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.12s;
+  box-shadow: 0 0 20px rgba(255, 133, 194, 0.4), inset 0 -2px 0 rgba(0, 0, 0, 0.3);
+}
+
+.btn-search:hover {
+  background: #ff9fd3;
+  box-shadow: 0 0 32px rgba(255, 133, 194, 0.6);
+  transform: translateY(-1px);
+}
+
+.btn-search:active {
+  transform: translateY(1px);
+  box-shadow: none;
+}
+
+/* hint chips */
+.hint-chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.chip {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 1px;
+  padding: 5px 14px;
+  border-radius: 3px;
+  border: 1px solid rgba(212, 170, 255, 0.25);
+  background: transparent;
+  color: var(--lilac);
+  cursor: pointer;
+  transition: all 0.18s;
+  user-select: none;
+}
+
+.chip:hover {
+  border-color: var(--lilac);
+  background: rgba(212, 170, 255, 0.12);
+  color: var(--cream);
+}
+
+/* ============================================================
+   SEARCH MODE HINT DISPLAY
+============================================================ */
+.mode-hint {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  color: var(--mint);
+  margin-top: 12px;
+  min-height: 18px;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ============================================================
+   RESULT BOX
+============================================================ */
+#resultBox {
+  margin-top: 30px;
+}
+
+.result-header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.result-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--cream);
+}
+
+.result-badge {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  color: var(--pink);
+  letter-spacing: 1px;
+}
+
+.highlight {
+  color: var(--pink);
+}
+
+/* ============================================================
+   TABLE
+============================================================ */
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+thead {
+  border-bottom: 2px solid var(--pink-deep);
+}
+
+thead th {
+  padding: 13px 16px;
+  text-align: center;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--pink);
+  background: rgba(255, 133, 194, 0.07);
+}
+
+tbody tr {
+  border-bottom: 1px solid rgba(255, 133, 194, 0.07);
+  transition: background 0.15s;
+}
+
+tbody tr:hover {
+  background: rgba(255, 133, 194, 0.07);
+}
+
+tbody td {
+  padding: 13px 16px;
+  text-align: center;
+  color: var(--text);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+/* notes column highlight */
+tbody td:nth-child(2) {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--yellow);
+}
+
+tfoot tr {
+  background: rgba(255, 133, 194, 0.1);
+  border-top: 2px solid var(--pink-deep);
+}
+
+tfoot td {
+  padding: 14px 16px;
+  text-align: center;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--cream);
+  letter-spacing: 1.5px;
+}
+
+tfoot td b {
+  color: var(--yellow);
+}
+
+/* ============================================================
+   ERROR / SUCCESS
+============================================================ */
+.error-box {
+  padding: 16px 22px;
+  background: rgba(255, 60, 90, 0.1);
+  border-left: 4px solid #FF3C5A;
+  border-radius: 0 6px 6px 0;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 14px;
+  color: #FF8FA3;
+  letter-spacing: 0.5px;
+  margin-bottom: 16px;
+}
+
+.success-box {
+  padding: 14px 22px;
+  background: rgba(168, 255, 228, 0.08);
+  border-left: 4px solid var(--mint);
+  border-radius: 0 6px 6px 0;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 14px;
+  color: var(--mint);
+  margin-top: 14px;
+}
+
+/* ============================================================
+   SAVE BOX
+============================================================ */
+.save-box {
+  margin-top: 20px;
+  padding: 28px 32px;
+  background: var(--bg3);
+  border: 1px solid rgba(212, 170, 255, 0.2);
+  border-radius: 6px;
+  position: relative;
+}
+
+.save-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background: var(--lilac);
+}
+
+.save-label {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--lilac);
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.save-input {
+  width: 100%;
+  padding: 14px 18px;
+  background: var(--bg);
+  border: 1.5px solid rgba(212, 170, 255, 0.25);
+  border-radius: 4px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 16px;
+  color: var(--cream);
+  outline: none;
+  transition: border-color 0.2s;
+  letter-spacing: 1px;
+  margin-bottom: 14px;
+}
+
+.save-input::placeholder {
+  color: rgba(212, 170, 255, 0.3);
+}
+
+.save-input:focus {
+  border-color: var(--lilac);
+}
+
+.btn-save {
+  width: 100%;
+  padding: 14px;
+  background: var(--lilac);
+  border: 1.5px solid var(--lilac);
+  border-radius: 4px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #1a0010;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 0 18px rgba(212, 170, 255, 0.35), inset 0 -2px 0 rgba(0, 0, 0, 0.25);
+}
+
+.btn-save:hover {
+  background: #e0c8ff;
+  box-shadow: 0 0 28px rgba(212, 170, 255, 0.5);
+}
+
+.btn-save:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* ============================================================
+   HISTORY
+============================================================ */
+.del-btn {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 1px;
+  padding: 6px 12px;
+  background: transparent;
+  border: 1px solid rgba(255, 60, 90, 0.4);
+  border-radius: 3px;
+  color: #FF8FA3;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.del-btn:hover {
+  background: rgba(255, 60, 90, 0.15);
+  border-color: #FF3C5A;
+}
+
+/* ============================================================
+   SECTION TITLES
+============================================================ */
+.section-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--cream);
+  margin-bottom: 6px;
+}
+
+.section-sub {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 1.5px;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+}
+
+/* divider line */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, var(--pink), transparent);
+  width: 100%;
+  margin: 24px 0;
+  opacity: 0.35;
+}
+
+/* ============================================================
+   ABOUT FEATURE CARDS
+============================================================ */
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.feature-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 22px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.feature-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 40px;
+  height: 2px;
+  background: var(--pink);
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(255, 133, 194, 0.12);
+}
+
+.feature-icon {
+  font-size: 28px;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.feature-card h3 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--pink);
+  margin-bottom: 8px;
+}
+
+.feature-card p {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* ============================================================
+   CONTACT
+============================================================ */
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-label {
+  display: block;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--pink);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 14px 18px;
+  background: var(--bg);
+  border: 1.5px solid rgba(255, 133, 194, 0.2);
+  border-radius: 4px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 15px;
+  color: var(--cream);
+  outline: none;
+  transition: border-color 0.2s;
+  letter-spacing: 0.5px;
+}
+
+.form-input::placeholder {
+  color: rgba(251, 218, 237, 0.25);
+}
+
+.form-input:focus {
+  border-color: var(--pink);
+}
+
+textarea.form-input {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.btn-alt {
+  padding: 15px 32px;
+  background: transparent;
+  border: 2px solid var(--mint);
+  border-radius: 4px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--mint);
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.2s;
+  width: 100%;
+  margin-top: 4px;
+}
+
+.btn-alt:hover {
+  background: var(--mint);
+  color: #0a1a12;
+  box-shadow: 0 0 22px rgba(168, 255, 228, 0.4);
+}
+
+/* ============================================================
+   FOOTER
+============================================================ */
+footer {
+  text-align: center;
+  padding: 22px;
+  border-top: 1px solid var(--border);
+  position: relative;
+  z-index: 1;
+}
+
+footer p {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 1.5px;
+}
+
+footer code {
+  color: var(--pink);
+  background: rgba(255, 133, 194, 0.1);
+  padding: 2px 7px;
+  border-radius: 3px;
+}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (max-width: 640px) {
+  .navbar {
+    padding: 12px 16px;
+  }
+
+  .nav-brand {
+    font-size: 14px;
+  }
+
+  .nav-links button {
+    padding: 6px 10px;
+    font-size: 9px;
+    letter-spacing: 1px;
+  }
+
+  .card {
+    padding: 24px 20px;
+  }
+
+  .hero h1 {
+    font-size: 30px;
+  }
+
+  .search-wrap {
+    flex-direction: column;
+  }
+
+  .text-input {
+    border-right: 1.5px solid rgba(255, 133, 194, 0.25);
+    border-radius: 4px 4px 0 0;
+  }
+
+  .btn-search {
+    border-radius: 0 0 4px 4px;
+    text-align: center;
+  }
+}

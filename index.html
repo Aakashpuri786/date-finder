@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Date Finder // DB Search</title>
+    <meta name="description" content="Search notes and symbols by year, month, day, or any partial date." />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <!-- ============================================================
+     NAVBAR
+============================================================ -->
+    <nav class="navbar">
+        <span class="nav-brand">// DATE_FINDER</span>
+        <div class="nav-links">
+            <button id="navHome" onclick="showPage('home')" class="active">Home</button>
+            <button id="navHistory" onclick="showPage('history')">History</button>
+            <button id="navAbout" onclick="showPage('about')">About</button>
+            <button id="navContact" onclick="showPage('contact')">Contact</button>
+        </div>
+    </nav>
+
+
+    <!-- ============================================================
+     HOME PAGE
+============================================================ -->
+    <div id="homePage" class="page active">
+        <div class="card">
+
+            <!-- Hero -->
+            <div class="hero">
+                <div class="hero-label">ideas.sql · 326 records loaded</div>
+                <h1>DATE<br><span>FINDER</span></h1>
+                <p>// Search by year · month · day · or any combination</p>
+            </div>
+
+            <!-- Mode reference strip -->
+            <div class="mode-tabs">
+                <span class="mode-tab active" onclick="fillChip('2066')">YEAR</span>
+                <span class="mode-tab" onclick="fillChip('06')">MONTH</span>
+                <span class="mode-tab" onclick="fillChip('day:13')">DAY</span>
+                <span class="mode-tab" onclick="fillChip('2066/08')">YEAR+MONTH</span>
+                <span class="mode-tab" onclick="fillChip('08/13')">MONTH+DAY</span>
+                <span class="mode-tab" onclick="fillChip('2066/08/13')">FULL DATE</span>
+            </div>
+
+            <!-- Search form -->
+            <form id="searchForm" autocomplete="off">
+                <div class="search-wrap">
+                    <input id="searchInput" class="text-input" type="text"
+                        placeholder="2066  ·  06  ·  2066/08  ·  08/13  ·  2066/08/13  ·  day:13" required />
+                    <button type="submit" class="btn-search">SEARCH</button>
+                </div>
+            </form>
+
+            <!-- Live mode hint -->
+            <div class="mode-hint" id="modeHint"></div>
+
+            <!-- Quick chips -->
+            <div class="hint-chips">
+                <span class="chip" onclick="fillChip('2066/08/13')">2066/08/13</span>
+                <span class="chip" onclick="fillChip('2066/08/13')">→ Full Date</span>
+                <span class="chip" onclick="fillChip('2066')">2066 → Year</span>
+                <span class="chip" onclick="fillChip('08')">08 → Month</span>
+                <span class="chip" onclick="fillChip('2066/08')">2066/08 → Y+M</span>
+                <span class="chip" onclick="fillChip('06/13')">06/13 → M+D</span>
+                <span class="chip" onclick="fillChip('day:13')">day:13 → Day</span>
+            </div>
+
+            <!-- Results injected here -->
+            <div id="resultBox"></div>
+
+        </div>
+    </div>
+
+
+    <!-- ============================================================
+     HISTORY PAGE
+============================================================ -->
+    <div id="historyPage" class="page">
+        <div class="card">
+            <div class="section-title">Search History</div>
+            <div class="section-sub">// Queries saved when no record was found</div>
+            <div id="historyContent"></div>
+        </div>
+    </div>
+
+
+    <!-- ============================================================
+     ABOUT PAGE
+============================================================ -->
+    <div id="aboutPage" class="page">
+        <div class="card">
+            <div class="section-title">About</div>
+            <div class="section-sub">// What this tool does</div>
+
+            <p
+                style="font-family:'Share Tech Mono',monospace; font-size:14px; line-height:1.85; color:rgba(251,218,237,0.65); letter-spacing:0.5px;">
+                <span style="color:#FF85C2;">DATE_FINDER</span> is a pure client-side search tool that lets
+                you query <span style="color:#FFE07A;">326 banknote records</span> from the
+                <code
+                    style="background:rgba(255,133,194,0.1);padding:2px 7px;border-radius:3px;color:#FF85C2;">ideas.sql</code>
+                database. No server. No page reload. Every record is embedded directly into the JavaScript bundle.
+                Search by full date, year alone, month alone, day alone, or any two-part combination.
+                Unmatched queries can be saved to your local history.
+            </p>
+
+            <div class="divider"></div>
+
+            <div class="about-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">⚡</span>
+                    <h3>Instant</h3>
+                    <p>No network calls. Results appear as you hit search.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🧩</span>
+                    <h3>Partial Search</h3>
+                    <p>Six search modes: year, month, day, and combos.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">�</span>
+                    <h3>Local History</h3>
+                    <p>Missed dates saved in your browser's localStorage.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">📱</span>
+                    <h3>Responsive</h3>
+                    <p>Desktop, tablet, or mobile — fully adaptive layout.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ============================================================
+     CONTACT PAGE
+============================================================ -->
+    <div id="contactPage" class="page">
+        <div class="card">
+            <div class="section-title">Contact</div>
+            <div class="section-sub">// Feedback or questions? Send a message</div>
+
+            <div class="form-group">
+                <label class="form-label">Name</label>
+                <input id="cName" type="text" class="form-input" placeholder="Your name..." />
+            </div>
+            <div class="form-group">
+                <label class="form-label">Email</label>
+                <input id="cEmail" type="email" class="form-input" placeholder="you@example.com" />
+            </div>
+            <div class="form-group">
+                <label class="form-label">Message</label>
+                <textarea id="cMsg" class="form-input" placeholder="Your message..."></textarea>
+            </div>
+
+            <button class="btn-alt" onclick="sendContact()">Send Message</button>
+            <div id="contactMsg"></div>
+        </div>
+    </div>
+
+
+    <!-- ============================================================
+     FOOTER
+============================================================ -->
+    <footer>
+        <p>&copy; 2025 / DATE_FINDER &nbsp;&bull;&nbsp; data from <code>ideas.sql</code> &nbsp;&bull;&nbsp; 326 records
+            &nbsp;&bull;&nbsp; no server required</p>
+    </footer>
+
+
+    <!-- ============================================================
+     SCRIPTS
+============================================================ -->
+    <script src="app.js"></script>
+    <script>
+        // ── Nav page switcher ────────────────────────────────────────
+        function showPage(page) {
+            ['home', 'history', 'about', 'contact'].forEach(p => {
+                const el = document.getElementById(p + 'Page');
+                if (el) { el.style.display = 'none'; el.classList.remove('active'); }
+            });
+
+            const target = document.getElementById(page + 'Page');
+            if (target) {
+                target.style.display = 'block';
+                void target.offsetWidth;   // force reflow for animation
+                target.classList.add('active');
+            }
+
+            // update nav buttons
+            ['Home', 'History', 'About', 'Contact'].forEach(p => {
+                const btn = document.getElementById('nav' + p);
+                if (btn) btn.classList.remove('active');
+            });
+            const cap = page.charAt(0).toUpperCase() + page.slice(1);
+            const activeBtn = document.getElementById('nav' + cap);
+            if (activeBtn) activeBtn.classList.add('active');
+
+            if (page === 'history') renderHistory();
+        }
+
+        // ── Mode tabs highlight ──────────────────────────────────────
+        document.querySelectorAll('.mode-tab').forEach(tab => {
+            tab.addEventListener('click', function () {
+                document.querySelectorAll('.mode-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // ── Quick-fill chips ─────────────────────────────────────────
+        function fillChip(val) {
+            document.getElementById('searchInput').value = val;
+            updateModeHint();
+            document.getElementById('searchForm').dispatchEvent(new Event('submit'));
+        }
+
+        // ── Contact form (UI only) ───────────────────────────────────
+        function sendContact() {
+            const n = document.getElementById('cName').value.trim();
+            const e = document.getElementById('cEmail').value.trim();
+            const m = document.getElementById('cMsg').value.trim();
+            const box = document.getElementById('contactMsg');
+            if (!n || !e || !m) {
+                box.innerHTML = '<div class="error-box">⚠️ All fields are required.</div>';
+                return;
+            }
+            box.innerHTML = '<div class="success-box">✅ MESSAGE SENT — We\'ll be in touch.</div>';
+            document.getElementById('cName').value = '';
+            document.getElementById('cEmail').value = '';
+            document.getElementById('cMsg').value = '';
+        }
+    </script>
+
+</body>
+
+</html>
