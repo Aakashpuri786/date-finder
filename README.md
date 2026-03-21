@@ -1,6 +1,6 @@
 # Date-finder
- ###### It is an website where you can search the **date of birth** in here and 
- ###### If it is availabe there you can buy that currency which have the symbol of your dob in notes 
+ It is an website where you can search the **Date Of Birth (DOB)** in here and 
+ If it is availabe there you can buy that currency which have the symbol of your dob in notes 
  
 ### check out this website : https://aakashpuri786.github.io/date-finder/
 
